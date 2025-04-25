@@ -53,24 +53,208 @@
             color: #00d1ff;
         }
         
-        /* Game styles */
-        .game-target {
-            transition: all 0.2s ease;
+        /* Memory Card Game Styles */
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            perspective: 1000px;
+        }
+        
+        .memory-card {
+            height: 80px;
+            position: relative;
             cursor: pointer;
+            transform-style: preserve-3d;
+            transform: scale(1);
+            transition: transform 0.3s;
         }
         
-        .game-target:hover {
-            transform: scale(1.05);
+        .memory-card:hover {
+            transform: scale(0.95);
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .memory-card-front, .memory-card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 8px;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .pulse {
-            animation: pulse 1.5s infinite ease-in-out;
+        .memory-card-front {
+            background: linear-gradient(45deg, #2193b0, #6dd5ed);
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card-back {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+        }
+        
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+        
+        /* Particle Animation */
+        .particle-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: linear-gradient(to right, #141e30, #243b55);
+        }
+        
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, white, rgba(255, 255, 255, 0));
+            animation: float 15s linear infinite;
+        }
+        
+        .particle:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-duration: 12s;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(0, 209, 255, 0.7);
+        }
+        
+        .particle:nth-child(2) {
+            top: 60%;
+            left: 30%;
+            animation-duration: 18s;
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 0, 230, 0.7);
+            animation-delay: 2s;
+        }
+        
+        .particle:nth-child(3) {
+            top: 30%;
+            left: 60%;
+            animation-duration: 14s;
+            width: 18px;
+            height: 18px;
+            background-color: rgba(0, 255, 170, 0.7);
+            animation-delay: 1s;
+        }
+        
+        .particle:nth-child(4) {
+            top: 70%;
+            left: 80%;
+            animation-duration: 20s;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 197, 0, 0.7);
+            animation-delay: 3s;
+        }
+        
+        .particle:nth-child(5) {
+            top: 40%;
+            left: 40%;
+            animation-duration: 16s;
+            width: 14px;
+            height: 14px;
+            background-color: rgba(255, 73, 73, 0.7);
+            animation-delay: 5s;
+        }
+        
+        .particle:nth-child(6) {
+            top: 80%;
+            left: 50%;
+            animation-duration: 22s;
+            width: 16px;
+            height: 16px;
+            background-color: rgba(138, 43, 226, 0.7);
+            animation-delay: 7s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-200px) translateX(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Interactive Cube */
+        .cube-container {
+            perspective: 800px;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 15s infinite linear;
+        }
+        
+        .cube:hover {
+            animation-play-state: paused;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            opacity: 0.8;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        .front { 
+            transform: translateZ(75px);
+            background: linear-gradient(45deg, #00F260, #0575E6);
+        }
+        .back { 
+            transform: rotateY(180deg) translateZ(75px);
+            background: linear-gradient(45deg, #8E2DE2, #4A00E0);
+        }
+        .right { 
+            transform: rotateY(90deg) translateZ(75px);
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+        }
+        .left { 
+            transform: rotateY(-90deg) translateZ(75px);
+            background: linear-gradient(45deg, #FFEFBA, #FFFFFF);
+            color: #1e1e1e;
+        }
+        .top { 
+            transform: rotateX(90deg) translateZ(75px);
+            background: linear-gradient(45deg, #FC466B, #3F5EFB);
+        }
+        .bottom { 
+            transform: rotateX(-90deg) translateZ(75px);
+            background: linear-gradient(45deg, #F09819, #EDDE5D);
+            color: #1e1e1e;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateX(0) rotateY(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
         }
     </style>
 </head>
@@ -86,7 +270,7 @@
                 <a href="#home" class="hover:text-blue-400 transition">Home</a>
                 <a href="#about" class="hover:text-blue-400 transition">About</a>
                 <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
-                <a href="#game" class="hover:text-blue-400 transition">Game</a>
+                <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-gray-400 hover:text-white focus:outline-none">
@@ -100,7 +284,7 @@
                 <a href="#home" class="hover:text-blue-400 transition">Home</a>
                 <a href="#about" class="hover:text-blue-400 transition">About</a>
                 <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
-                <a href="#game" class="hover:text-blue-400 transition">Game</a>
+                <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
             </div>
         </div>
     </header>
@@ -119,8 +303,8 @@
                     Passionate about building intelligent systems and exploring the frontiers of artificial intelligence. Currently pursuing my studies at Army Institute of Technology, Pune.
                 </p>
                 <div class="flex space-x-4">
-                    <a href="#game" class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-md font-medium hover:opacity-90 transition">
-                        Play My Game
+                    <a href="#contact" class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-md font-medium hover:opacity-90 transition">
+                        Get In Touch
                     </a>
                     <a href="#resume" class="border border-gray-600 px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition">
                         My Resume
@@ -325,255 +509,84 @@
         </div>
     </section>
 
-    <!-- Animation Game Section -->
-    <section id="game" class="py-20 px-4">
+    <!-- Contact Section with CSS Animation Game -->
+    <section id="contact" class="py-20 px-4">
         <div class="container mx-auto max-w-4xl">
             <h2 class="text-3xl font-bold mb-12 text-center">
-                <span class="gradient-text">Catch the AI</span>
+                <span class="gradient-text">Interactive Corner</span>
             </h2>
             
-            <div class="card-glass p-8 rounded-lg">
-                <div class="text-center mb-8">
-                    <h3 class="text-xl font-semibold mb-3">AI Tag Game</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
                     <p class="text-gray-400 mb-6">
-                        Can you catch all the AI entities? Click on them before they disappear! Test your reflexes and aim in this simple game.
+                        Feel free to reach out to me for collaborations, projects, or just to say hello!
                     </p>
-                    <div class="flex justify-center gap-6 mb-6">
-                        <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-                            <div class="text-2xl font-bold text-blue-400 mb-1">
-                                <span id="score">0</span>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-envelope text-blue-400"></i>
                             </div>
-                            <div class="text-sm text-gray-400">Score</div>
+                            <div>
+                                <h4 class="font-medium">Email</h4>
+                                <a href="mailto:pandeykrishnashankar24@gmail.com" class="text-gray-400 hover:text-blue-400 transition">pandeykrishnashankar24@gmail.com</a>
+                            </div>
                         </div>
-                        <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-                            <div class="text-2xl font-bold text-purple-400 mb-1">
-                                <span id="timer">30</span>s
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-phone text-purple-400"></i>
                             </div>
-                            <div class="text-sm text-gray-400">Time Left</div>
+                            <div>
+                                <h4 class="font-medium">Phone</h4>
+                                <a href="tel:+917000256255" class="text-gray-400 hover:text-purple-400 transition">+91 7000256255</a>
+                            </div>
                         </div>
-                        <div class="bg-gray-800/50 p-4 rounded-lg border border-gray-700">
-                            <div class="text-2xl font-bold text-green-400 mb-1">
-                                <span id="highscore">0</span>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-map-marker-alt text-green-400"></i>
                             </div>
-                            <div class="text-sm text-gray-400">High Score</div>
+                            <div>
+                                <h4 class="font-medium">Location</h4>
+                                <p class="text-gray-400">Pune, Maharashtra, India</p>
+                            </div>
                         </div>
                     </div>
-                    <button id="start-game" class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-md font-medium hover:opacity-90 transition">
-                        Start Game
-                    </button>
-                </div>
-                
-                <div id="game-container" class="relative bg-gray-800 rounded-lg w-full h-80 overflow-hidden">
-                    <div class="absolute inset-0 flex items-center justify-center text-gray-500">
-                        Click "Start Game" to begin!
+                    
+                    <div class="mt-8">
+                        <h4 class="font-medium mb-4">Connect with me</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/in/krishna-shankar-pandey-6375711b3/" target="_blank" class="w-10 h-10 rounded-full bg-blue-600/20 flex items-center justify-center hover:bg-blue-600/40 transition">
+                                <i class="fab fa-linkedin-in text-blue-400"></i>
+                            </a>
+                            <a href="https://x.com/Krishna888078" target="_blank" class="w-10 h-10 rounded-full bg-black/20 flex items-center justify-center hover:bg-black/40 transition">
+                                <i class="fab fa-twitter text-gray-400"></i>
+                            </a>
+                            <a href="https://www.instagram.com/krishna.pnd/" target="_blank" class="w-10 h-10 rounded-full bg-pink-600/20 flex items-center justify-center hover:bg-pink-600/40 transition">
+                                <i class="fab fa-instagram text-pink-400"></i>
+                            </a>
+                            <a href="https://github.com/" target="_blank" class="w-10 h-10 rounded-full bg-gray-600/20 flex items-center justify-center hover:bg-gray-600/40 transition">
+                                <i class="fab fa-github text-gray-400"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <div id="game-over" class="hidden mt-8 text-center">
-                    <h3 class="text-xl font-bold mb-3 text-red-400">Game Over!</h3>
-                    <p class="mb-4">Your final score: <span id="final-score">0</span></p>
-                    <button id="restart-game" class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-md font-medium hover:opacity-90 transition">
-                        Play Again
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-8 px-4">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                    <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                    <span class="text-xl font-bold code-font gradient-text">KSP</span>
-                </div>
-                <div class="text-gray-400 text-sm">
-                    © 2025 Krishna Shankar Pandey. All rights reserved.
-                </div>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="https://www.linkedin.com/in/krishna-shankar-pandey-6375711b3/" target="_blank" class="text-gray-400 hover:text-blue-400 transition">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://x.com/Krishna888078" target="_blank" class="text-gray-400 hover:text-gray-300 transition">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.instagram.com/krishna.pnd/" target="_blank" class="text-gray-400 hover:text-pink-400 transition">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Interactive Elements</h3>
+                    <p class="text-gray-400 mb-6">
+                        Have some fun with these CSS animations while you're here!
+                    </p>
                     
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                }
-            });
-        });
-
-        // Add active class to current section in navigation
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a, #mobile-menu a');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('text-blue-400');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('text-blue-400');
-                }
-            });
-        });
-
-        // Game logic
-        const gameContainer = document.getElementById('game-container');
-        const scoreDisplay = document.getElementById('score');
-        const timerDisplay = document.getElementById('timer');
-        const highscoreDisplay = document.getElementById('highscore');
-        const finalScoreDisplay = document.getElementById('final-score');
-        const startButton = document.getElementById('start-game');
-        const restartButton = document.getElementById('restart-game');
-        const gameOverDisplay = document.getElementById('game-over');
-
-        let score = 0;
-        let timeLeft = 30;
-        let gameTimer;
-        let targetTimer;
-        let highScore = 0;
-        let isGameActive = false;
-
-        const colors = [
-            'bg-blue-500', 'bg-purple-500', 'bg-green-500', 
-            'bg-pink-500', 'bg-yellow-500', 'bg-red-500'
-        ];
-
-        const icons = [
-            'fa-brain', 'fa-robot', 'fa-cogs', 
-            'fa-microchip', 'fa-network-wired', 'fa-code'
-        ];
-
-        function startGame() {
-            // Reset game state
-            score = 0;
-            timeLeft = 30;
-            scoreDisplay.textContent = score;
-            timerDisplay.textContent = timeLeft;
-            gameOverDisplay.classList.add('hidden');
-            isGameActive = true;
-            
-            // Clear game container
-            gameContainer.innerHTML = '';
-            
-            // Start countdown
-            gameTimer = setInterval(() => {
-                timeLeft--;
-                timerDisplay.textContent = timeLeft;
-                
-                if (timeLeft <= 0) {
-                    endGame();
-                }
-            }, 1000);
-            
-            // Start spawning targets
-            spawnTarget();
-        }
-
-        function spawnTarget() {
-            if (!isGameActive) return;
-            
-            // Create a target
-            const target = document.createElement('div');
-            
-            // Random position
-            const size = Math.floor(Math.random() * 20) + 30; // 30-50px
-            const maxX = gameContainer.offsetWidth - size;
-            const maxY = gameContainer.offsetHeight - size;
-            const posX = Math.floor(Math.random() * maxX);
-            const posY = Math.floor(Math.random() * maxY);
-            
-            // Random color and icon
-            const colorIndex = Math.floor(Math.random() * colors.length);
-            const iconIndex = Math.floor(Math.random() * icons.length);
-            
-            // Style the target
-            target.className = `game-target absolute ${colors[colorIndex]} flex items-center justify-center rounded-full transition-all`;
-            target.style.width = `${size}px`;
-            target.style.height = `${size}px`;
-            target.style.left = `${posX}px`;
-            target.style.top = `${posY}px`;
-            
-            const icon = document.createElement('i');
-            icon.className = `fas ${icons[iconIndex]} text-white`;
-            target.appendChild(icon);
-            
-            // Add click handler
-            target.addEventListener('click', () => {
-                score++;
-                scoreDisplay.textContent = score;
-                target.remove();
-                
-                // Visual feedback
-                const feedback = document.createElement('div');
-                feedback.className = 'absolute text-white font-bold';
-                feedback.style.left = `${posX + size/2}px`;
-                feedback.style.top = `${posY}px`;
-                feedback.textContent = '+1';
-                gameContainer.appendChild(feedback);
-                
-                // Animate and remove feedback
-                setTimeout(() => {
-                    feedback.style.transform = 'translateY(-20px)';
-                    feedback.style.opacity = '0';
-                    feedback.style.transition = 'all 0.5s ease';
-                    
-                    setTimeout(() => {
-                        feedback.remove();
-                    }, 500);
-                }, 10);
-            });
-            
-            // Add to game container
-            gameContainer.appendChild(target);
-            
-            // Target disappears after random time
-            const duration = Math.floor(Math.random() * 1500) + 1000; // 1-2.5 seconds
-            setTimeout(() => {
-                if (target.parentNode === gameContainer) {
-                    target.
+                    <!-- Particle Animation -->
+                    <div class="card-glass rounded-lg p-4 mb-6">
+                        <h4 class="font-medium mb-2">Neural Network Particles</h4>
+                        <div class="particle-container">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="
